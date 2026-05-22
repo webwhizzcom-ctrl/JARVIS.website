@@ -199,6 +199,8 @@ export function CinematicReveal() {
           ref={canvasRef}
           className="absolute inset-0 h-full w-full"
           style={{ willChange: "contents", transform: "translateZ(0)" }}
+          role="img"
+          aria-label="JARVIS Devs AI cinematic reveal animation by DEV"
         />
 
         <div
@@ -223,7 +225,7 @@ export function CinematicReveal() {
         </div>
 
         <div className="pointer-events-none absolute right-6 top-28 z-10 flex max-w-[46ch] flex-col items-end gap-5 text-right md:right-12 md:top-32">
-          <EyebrowBadge>TITAN II // FINAL FRAME</EyebrowBadge>
+          <EyebrowBadge>JARVIS DEVS AI // FINAL FRAME</EyebrowBadge>
           <div className="relative self-stretch">
             <h2
               ref={h2InevitableRef}

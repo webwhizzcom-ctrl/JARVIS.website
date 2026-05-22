@@ -191,6 +191,8 @@ export function Hero() {
           ref={canvasRef}
           className="absolute inset-0 h-full w-full"
           style={{ willChange: "contents", transform: "translateZ(0)" }}
+          role="img"
+          aria-label="Iron Man inspired JARVIS AI assistant cinematic animation by DEV"
         />
 
         <div
@@ -219,15 +221,14 @@ export function Hero() {
           className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-start gap-5 px-6 pb-24 md:px-12 md:pb-28"
           style={{ transition: "opacity 80ms linear" }}
         >
-          <EyebrowBadge>MARK LXXXV // STARK INDUSTRIES // ONLINE</EyebrowBadge>
+          <EyebrowBadge>JARVIS DEVS AI // DEV // ONLINE</EyebrowBadge>
           <h1 className="max-w-[14ch] font-sans text-5xl font-semibold leading-[0.95] tracking-tighter text-foreground md:text-7xl lg:text-8xl">
-            I am
+            JARVIS
             <br />
-            <span className="text-accent">Iron Man.</span>
+            <span className="text-accent">Devs AI</span>
           </h1>
           <p className="max-w-[42ch] font-sans text-sm leading-relaxed text-zinc-400 md:text-base">
-            Mark LXXXV nanotech suit. Arc reactor calibrated. Scroll to run a full
-            system diagnostic — J.A.R.V.I.S. is holding on the line.
+            A futuristic AI assistant built by DEV. Voice-controlled, cinematic, and inspired by Iron Man &mdash; your personal AI system is standing by.
           </p>
         </div>
 
@@ -246,7 +247,7 @@ export function Hero() {
             with <span className="text-accent">DEV</span>
           </h2>
           <p className="max-w-[36ch] font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-400">
-            Interfaces &amp; products, engineered like the Mark LXXXV.
+            AI Assistant by DEV &mdash; futuristic interfaces &amp; intelligent products.
           </p>
         </div>
 

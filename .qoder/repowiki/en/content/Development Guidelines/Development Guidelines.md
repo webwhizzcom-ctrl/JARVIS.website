@@ -17,7 +17,15 @@
 - [src/components/ui/HudFrame.tsx](file://src/components/ui/HudFrame.tsx)
 - [src/components/sections/Hero.tsx](file://src/components/sections/Hero.tsx)
 - [src/components/sections/CinematicReveal.tsx](file://src/components/sections/CinematicReveal.tsx)
+- [src/components/sections/SystemsNominal.tsx](file://src/components/sections/SystemsNominal.tsx)
+- [src/components/sections/Footer.tsx](file://src/components/sections/Footer.tsx)
 </cite>
+
+## Update Summary
+**Changes Made**
+- Updated development server configuration section to reflect Windows compatibility improvements
+- Added cross-platform development experience guidance
+- Enhanced tooling configuration documentation with webpack flag details
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -29,8 +37,9 @@
 7. [Performance Considerations](#performance-considerations)
 8. [Testing Strategies](#testing-strategies)
 9. [Code Quality and Tooling](#code-quality-and-tooling)
-10. [Extensibility and Maintenance](#extensibility-and-maintenance)
-11. [Conclusion](#conclusion)
+10. [Development Server Configuration](#development-server-configuration)
+11. [Extensibility and Maintenance](#extensibility-and-maintenance)
+12. [Conclusion](#conclusion)
 
 ## Introduction
 This document provides comprehensive development guidelines for the Iron Man project. It covers TypeScript configuration, ESLint rules, and PostCSS/Tailwind setup to ensure consistent code quality. It explains component development patterns, including prop interfaces, state management, and lifecycle considerations. It also documents animation best practices for canvas rendering, scroll performance optimization, and memory management. Code organization standards, file naming conventions, and component structure guidelines are included. Testing strategies for animation components, scroll behavior verification, and cross-browser compatibility are outlined. Finally, it addresses performance profiling techniques, bundle size optimization, production deployment considerations, and guidelines for extending the animation system and adding new UI components.
@@ -53,22 +62,25 @@ A --> C["src/app/page.tsx"]
 C --> D["src/components/ui/Navbar.tsx"]
 C --> E["src/components/sections/Hero.tsx"]
 C --> F["src/components/sections/CinematicReveal.tsx"]
-C --> G["src/components/sections/Footer.tsx"]
-E --> H["src/lib/hero.ts"]
-F --> I["src/lib/cinematic.ts"]
-E --> J["src/components/ui/AnimatedSection.tsx"]
-F --> J
-E --> K["src/components/ui/HudFrame.tsx"]
+C --> G["src/components/sections/SystemsNominal.tsx"]
+C --> H["src/components/sections/Footer.tsx"]
+E --> I["src/lib/hero.ts"]
+F --> J["src/lib/cinematic.ts"]
+E --> K["src/components/ui/AnimatedSection.tsx"]
 F --> K
+E --> L["src/components/ui/HudFrame.tsx"]
+F --> L
 ```
 
 **Diagram sources**
 - [src/app/layout.tsx:1-37](file://src/app/layout.tsx#L1-L37)
-- [src/app/page.tsx:1-20](file://src/app/page.tsx#L1-L20)
+- [src/app/page.tsx:1-23](file://src/app/page.tsx#L1-L23)
 - [src/components/providers/SmoothScrollProvider.tsx:1-37](file://src/components/providers/SmoothScrollProvider.tsx#L1-L37)
 - [src/components/ui/Navbar.tsx:1-67](file://src/components/ui/Navbar.tsx#L1-L67)
 - [src/components/sections/Hero.tsx:1-366](file://src/components/sections/Hero.tsx#L1-L366)
 - [src/components/sections/CinematicReveal.tsx:1-384](file://src/components/sections/CinematicReveal.tsx#L1-L384)
+- [src/components/sections/SystemsNominal.tsx:1-31](file://src/components/sections/SystemsNominal.tsx#L1-L31)
+- [src/components/sections/Footer.tsx:1-62](file://src/components/sections/Footer.tsx#L1-L62)
 - [src/lib/hero.ts:1-43](file://src/lib/hero.ts#L1-L43)
 - [src/lib/cinematic.ts:1-47](file://src/lib/cinematic.ts#L1-L47)
 - [src/components/ui/AnimatedSection.tsx:1-43](file://src/components/ui/AnimatedSection.tsx#L1-L43)
@@ -76,7 +88,7 @@ F --> K
 
 **Section sources**
 - [src/app/layout.tsx:1-37](file://src/app/layout.tsx#L1-L37)
-- [src/app/page.tsx:1-20](file://src/app/page.tsx#L1-L20)
+- [src/app/page.tsx:1-23](file://src/app/page.tsx#L1-L23)
 
 ## Core Components
 This section outlines the foundational building blocks and their roles:
@@ -85,6 +97,8 @@ This section outlines the foundational building blocks and their roles:
 - Navbar: Scroll-aware header with dynamic styling.
 - HUD frame component: SVG-based corner decorations for HUD elements.
 - Hero and CinematicReveal: Canvas-driven scroll-linked animations with image sequences and dialogue/beat overlays.
+- SystemsNominal: Telemetry display section with animated entries.
+- Footer: Informational footer with navigation links.
 
 **Section sources**
 - [src/components/providers/SmoothScrollProvider.tsx:1-37](file://src/components/providers/SmoothScrollProvider.tsx#L1-L37)
@@ -93,6 +107,8 @@ This section outlines the foundational building blocks and their roles:
 - [src/components/ui/HudFrame.tsx:1-32](file://src/components/ui/HudFrame.tsx#L1-L32)
 - [src/components/sections/Hero.tsx:1-366](file://src/components/sections/Hero.tsx#L1-L366)
 - [src/components/sections/CinematicReveal.tsx:1-384](file://src/components/sections/CinematicReveal.tsx#L1-L384)
+- [src/components/sections/SystemsNominal.tsx:1-31](file://src/components/sections/SystemsNominal.tsx#L1-L31)
+- [src/components/sections/Footer.tsx:1-62](file://src/components/sections/Footer.tsx#L1-L62)
 
 ## Architecture Overview
 The architecture centers around:
@@ -117,6 +133,8 @@ end
 subgraph "Sections"
 H["Hero"]
 CR["CinematicReveal"]
+SN["SystemsNominal"]
+F["Footer"]
 end
 subgraph "Libraries"
 LH["lib/hero.ts"]
@@ -124,6 +142,7 @@ LC["lib/cinematic.ts"]
 end
 L --> H
 L --> CR
+L --> SN
 M --> S
 C --> H
 C --> CR
@@ -140,6 +159,8 @@ N --> L
 - [src/components/ui/HudFrame.tsx:1-32](file://src/components/ui/HudFrame.tsx#L1-L32)
 - [src/components/sections/Hero.tsx:1-366](file://src/components/sections/Hero.tsx#L1-L366)
 - [src/components/sections/CinematicReveal.tsx:1-384](file://src/components/sections/CinematicReveal.tsx#L1-L384)
+- [src/components/sections/SystemsNominal.tsx:1-31](file://src/components/sections/SystemsNominal.tsx#L1-L31)
+- [src/components/sections/Footer.tsx:1-62](file://src/components/sections/Footer.tsx#L1-L62)
 - [src/lib/hero.ts:1-43](file://src/lib/hero.ts#L1-L43)
 - [src/lib/cinematic.ts:1-47](file://src/lib/cinematic.ts#L1-L47)
 
@@ -241,6 +262,25 @@ F --> G["Render beat cards"]
 - [src/components/sections/CinematicReveal.tsx:1-384](file://src/components/sections/CinematicReveal.tsx#L1-L384)
 - [src/lib/cinematic.ts:1-47](file://src/lib/cinematic.ts#L1-L47)
 
+### SystemsNominal
+- Telemetry display section with animated entries.
+- Uses EyebrowBadge and AnimatedSection components.
+- Presents system status information with nanoparticle lattice and cold-fusion details.
+
+```mermaid
+flowchart TD
+A["Telemetry Data"] --> B["AnimatedSection"]
+B --> C["AnimatedItem entries"]
+C --> D["EyebrowBadge"]
+D --> E["System Status Cards"]
+```
+
+**Diagram sources**
+- [src/components/sections/SystemsNominal.tsx:1-31](file://src/components/sections/SystemsNominal.tsx#L1-L31)
+
+**Section sources**
+- [src/components/sections/SystemsNominal.tsx:1-31](file://src/components/sections/SystemsNominal.tsx#L1-L31)
+
 ### Navbar
 - Scroll-aware header with backdrop blur and border changes.
 - Uses passive event listeners for performance.
@@ -336,8 +376,6 @@ Production deployment:
 - Verify font loading strategy and fallbacks.
 - Test across devices and browsers for scroll and canvas behavior.
 
-[No sources needed since this section provides general guidance]
-
 ## Testing Strategies
 Animation components:
 - Unit tests for helpers: framePath, cineFramePath, and progress-to-frame mapping.
@@ -353,8 +391,6 @@ Cross-browser compatibility:
 - Test scroll behavior differences across browsers and devices.
 - Validate canvas rendering consistency and pixel scaling.
 - Verify font rendering and fallbacks.
-
-[No sources needed since this section provides general guidance]
 
 ## Code Quality and Tooling
 TypeScript configuration:
@@ -390,6 +426,35 @@ LYT["layout.tsx"] --> Fonts["Geist fonts"]
 - [postcss.config.mjs:1-8](file://postcss.config.mjs#L1-L8)
 - [src/app/layout.tsx:1-37](file://src/app/layout.tsx#L1-L37)
 
+## Development Server Configuration
+
+**Updated** Enhanced development server configuration for Windows compatibility with --webpack flag
+
+The project now uses the `--webpack` flag in development and build scripts to improve cross-platform compatibility, particularly on Windows systems. This configuration ensures consistent behavior across different operating systems and development environments.
+
+### Development Scripts
+- `dev`: Starts the development server with webpack integration for enhanced Windows compatibility
+- `build`: Builds the application with webpack support
+- `start`: Runs the production server
+- `lint`: Executes ESLint for code quality checks
+
+### Cross-Platform Development Experience
+The `--webpack` flag provides several benefits for cross-platform development:
+- **Windows Compatibility**: Resolves path resolution and module loading issues common on Windows systems
+- **Consistent Behavior**: Ensures identical development experience across macOS, Linux, and Windows
+- **Improved Reliability**: Reduces platform-specific build and runtime errors
+- **Enhanced Performance**: Leverages webpack's optimized module resolution and caching mechanisms
+
+### Configuration Details
+The development server configuration includes:
+- Webpack integration for module resolution
+- Hot module replacement support
+- Source map generation for debugging
+- Optimized asset handling across platforms
+
+**Section sources**
+- [package.json:5-10](file://package.json#L5-L10)
+
 ## Extensibility and Maintenance
 Adding new UI components:
 - Place reusable components under src/components/ui with clear props interfaces.
@@ -406,9 +471,5 @@ Maintaining code quality:
 - Keep TypeScript strict mode enabled and avoid disabling it for new code.
 - Use viewport-triggered animations for off-main-thread-friendly motion.
 
-[No sources needed since this section provides general guidance]
-
 ## Conclusion
-By adhering to these guidelines—consistent TypeScript configuration, ESLint rules, and PostCSS/Tailwind setup—you can maintain high code quality across the project. Following the component development patterns, scroll performance best practices, and memory-conscious canvas rendering will ensure smooth, responsive experiences. Organize code thoughtfully, test thoroughly, and keep dependencies lean for optimal performance and maintainability.
-
-[No sources needed since this section summarizes without analyzing specific files]
+By adhering to these guidelines—consistent TypeScript configuration, ESLint rules, and PostCSS/Tailwind setup—you can maintain high code quality across the project. Following the component development patterns, scroll performance best practices, and memory-conscious canvas rendering will ensure smooth, responsive experiences. The enhanced development server configuration with webpack integration provides improved cross-platform compatibility, particularly for Windows users. Organize code thoughtfully, test thoroughly, and keep dependencies lean for optimal performance and maintainability.

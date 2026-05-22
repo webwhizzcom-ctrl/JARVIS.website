@@ -14,22 +14,22 @@ export function Footer() {
                 aria-hidden
                 className="inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgba(212,162,47,0.9)]"
               />
-              Stark / Industries
+              JARVIS / DEV
             </div>
             <p className="max-w-[38ch] font-sans text-sm leading-relaxed text-zinc-400">
-              &copy; Stark Industries &mdash; 10880 Malibu Point, 90265.
-              Registered trademark of the Office of Howard &amp; Anthony E. Stark.
+              &copy; {new Date().getFullYear()} Jarvis Devs AI &mdash; Built by DEV.
+              A futuristic AI assistant inspired by Iron Man.
             </p>
           </div>
 
-          <nav className="grid grid-cols-2 gap-x-10 gap-y-3 md:grid-cols-3">
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-3 md:grid-cols-3" aria-label="Quick links">
             {[
-              ["Mark I", "Cave, Afghanistan"],
-              ["Mark III", "Monaco Circuit"],
-              ["Mark VII", "Stark Tower"],
-              ["Mark XLIV", "Hulkbuster"],
-              ["Mark L", "Titan"],
-              ["Mark LXXXV", "Endgame"],
+              ["AI Assistant", "Voice Controlled"],
+              ["Diagnostics", "Real-time Analysis"],
+              ["Cinematic UI", "Iron Man Inspired"],
+              ["Neural Link", "J.A.R.V.I.S."],
+              ["Arc Reactor", "Power Systems"],
+              ["Nanotech", "Mark LXXXV"],
             ].map(([name, note]) => (
               <a
                 key={name}
@@ -53,8 +53,8 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/5 pt-6 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:flex-row md:items-center md:justify-between">
-          <span>Build 2026.04.21 &nbsp;&middot;&nbsp; Mark LXXXV &nbsp;&middot;&nbsp; J.A.R.V.I.S. Online</span>
-          <span>Proof of concept &mdash; fan art, no commercial use</span>
+          <span>JARVIS Devs AI &nbsp;&middot;&nbsp; DEV &nbsp;&middot;&nbsp; AI Assistant Online</span>
+          <span>Futuristic AI Interface &mdash; Built by DEV</span>
         </div>
       </div>
     </footer>

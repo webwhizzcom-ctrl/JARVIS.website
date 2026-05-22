@@ -20,20 +20,19 @@ export function SystemsNominal() {
       <div className="mx-auto flex max-w-[1400px] flex-col gap-16 md:grid md:grid-cols-[5fr_4fr] md:gap-20">
         <AnimatedSection className="flex flex-col gap-8">
           <AnimatedItem>
-            <EyebrowBadge>J.A.R.V.I.S. // SYSTEMS NOMINAL</EyebrowBadge>
+            <EyebrowBadge>JARVIS DEVS AI // SYSTEMS NOMINAL</EyebrowBadge>
           </AnimatedItem>
           <AnimatedItem>
             <h2 className="max-w-[16ch] font-sans text-4xl font-semibold leading-[0.98] tracking-tighter text-foreground md:text-6xl">
-              &ldquo;And I&hellip; am&hellip;{" "}
-              <span className="text-accent">Iron Man.</span>&rdquo;
+              &ldquo;Your <span className="text-accent">AI Assistant</span>&rdquo;
+              &mdash; by DEV
             </h2>
           </AnimatedItem>
           <AnimatedItem>
             <p className="max-w-[48ch] font-sans text-base leading-relaxed text-zinc-400 md:text-lg">
-              A snap heard around the universe. The Mark LXXXV was engineered in
-              six hours and retired in seconds &mdash; its final moment, the
-              reason any of us are still here. Every readout below is what
-              J.A.R.V.I.S. logged in the last frame before the blast.
+              JARVIS Devs AI is a futuristic, voice-controlled personal AI system built by DEV.
+              Every readout below represents the real-time diagnostics of your intelligent
+              AI assistant &mdash; inspired by Iron Man, engineered for the future.
             </p>
           </AnimatedItem>
           <AnimatedItem>
